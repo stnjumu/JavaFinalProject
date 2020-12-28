@@ -1,10 +1,9 @@
 import nju.hulugame.client.GameClient;
 import nju.hulugame.server.GameServer;
-
 class Main {
     public static void main(String[] args) {
         boolean isServer=false;
-        System.out.println("start");
+        System.out.println("Main");
         if(args.length>=1) {
             if(args.length>1) {
                 System.out.println("main()函数输入参数过多，仅使用第一个参数!");

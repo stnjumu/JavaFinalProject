@@ -1,5 +1,9 @@
 package nju.hulugame.client;
 
+import nju.hulugame.server.GameServer;
+import nju.hulugame.client.battle.controller.Controller;
+import nju.hulugame.client.battle.view.View;
+
 import java.net.*;
 import java.io.*;
 
@@ -8,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import nju.hulugame.server.GameServer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -20,8 +23,12 @@ public class GameClient{
     private int TANK_DEAD_UDP_PORT;//服务器监听坦克死亡的UDP端口
     private DatagramSocket dSocket = null;//客户端的UDP套接字
     public static void main(String[] args) {
-        GameClient gc=new GameClient();
-        gc.connect("127.0.0.1");
+        System.out.println("GameClient");
+        //GameClient gc=new GameClient();
+        //gc.connect("127.0.0.1");
+        
+        //new Thread(new GameThread()).start();
+        View.main(args);
     }
 
     public void connect(String ip){
