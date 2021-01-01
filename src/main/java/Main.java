@@ -14,10 +14,11 @@ class Main {
         }
         
         if(isServer) {
-            GameServer.main(args);
+            GameServer gs= new GameServer();
+            gs.start();
         }
         else {
-            GameClient.main(args);
+            GameClient.main();
         }
     }
 }
