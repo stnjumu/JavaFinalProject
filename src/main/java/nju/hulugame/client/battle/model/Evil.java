@@ -7,18 +7,20 @@ public class Evil extends Creature{
             //super("蛇精",500,20,10,3,3);
             name="蛇精";
             health=500;
-            attack=30;
+            attack=200;
             defence=10;
             speed=3;
+            speedMax=3;
             attackDist=3;
         }
         else if(id==11) {
             // 蝎子精
             name="蝎子精";
             health=2000;
-            attack=20;
-            defence=15;
+            attack=100;
+            defence=20;
             speed=2;
+            speedMax=2;
             attackDist=1;
         }
     }

@@ -1,6 +1,7 @@
 package nju.hulugame.server;
 
 import nju.hulugame.client.battle.controller.*;
+import nju.hulugame.client.battle.controller.Controller.MSG;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ import java.io.IOException;
 
 public class GameServer{
 
-    public static int side=0;  // side
+    public int side=0;  // side
     public static final int TCP_PORT = 50000;  // TCP端口号
     public static final int UDP_PORT = 50001;  // 转发客户端数据的UDP端口号
     public static final int TANK_DEAD_UDP_PORT = 50002;//接收客户端坦克死亡的端口号
@@ -87,14 +88,22 @@ public class GameServer{
                 DatagramPacket dp = new DatagramPacket(buf, buf.length);
                 try {
                     dSocket.receive(dp);
-                    //byte[] ibuf= dp.getData();
-                    //ByteArrayInputStream bais = new ByteArrayInputStream(ibuf, 0, dp.getLength());
-                    //DataInputStream dis = new DataInputStream(bais);
-                    //int msg=dis.readInt();
-                    //System.out.println("收到消息："+msg);
-                    for (Client c : clients){   // 收到什么就发什么；
-                        dp.setSocketAddress(new InetSocketAddress(c.IP, c.UDP_PORT));
-                        dSocket.send(dp);
+                    byte[] ibuf= dp.getData();
+                    ByteArrayInputStream bais = new ByteArrayInputStream(ibuf, 0, dp.getLength());
+                    DataInputStream dis = new DataInputStream(bais);
+                    int msg=dis.readInt();
+                    if(msg==MSG.END.ordinal()) {
+                        System.out.println("disconnected, UDP port:"+ dp.getPort());
+                        side--;
+                        if(side==0) {
+                            clients.clear();
+                        }
+                    }
+                    else {
+                        for (Client c : clients){   // 收到什么就发什么；
+                            dp.setSocketAddress(new InetSocketAddress(c.IP, c.UDP_PORT));
+                            dSocket.send(dp);
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -9,13 +9,12 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.plaf.metal.MetalBorders.ToolBarBorder;
-
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
@@ -74,15 +73,17 @@ public class View extends Application{
             }
         }
         // 控制区：
+        TextField tf=new TextField("127.0.0.1");
+        toolBar.getItems().add(tf);
         Button bConnect=new Button("连接服务器");
         toolBar.getItems().add(bConnect);
         bConnect.setOnAction(e->{
             gameControl=new Controller();
-            gameControl.set(primaryStage, mainPane, scene);
+            gameControl.set(primaryStage, mainPane, scene,imageSelected);
 
             gameClient=new GameClient(gameControl);
             // TODO: 用GUI输入IP替换下面；
-            gameClient.connect("127.0.0.1");
+            gameClient.connect(tf.getText());
             gameControl.setClient(gameClient);
             gameControl.setSide(gameClient.getSide());
         });
@@ -109,6 +110,13 @@ public class View extends Application{
         primaryStage.setOnCloseRequest(e->{
             System.exit(0);
         });
+        
+        /*
+        //TEST:
+        System.out.println(primaryStage.getHeight());
+        System.out.println(primaryStage.getMaxHeight());
+        System.out.println(primaryStage.getWidth());
+        System.out.println(primaryStage.getX());*/
 
         scene.setOnMouseClicked(e->{
             MouseButton b=e.getButton();
@@ -134,22 +142,22 @@ public class View extends Application{
                 }
                 else if(code.equals(KeyCode.W)) {
                     for (ImageView imageView : imageSelected) {
-                        gameControl.msgMove(imageView,Controller.DIR.UP);
+                        gameControl.wantMove(imageView,Controller.DIR.UP);
                     }
                 }
                 else if(code.equals(KeyCode.A)) {
                     for (ImageView imageView : imageSelected) {
-                        gameControl.msgMove(imageView,Controller.DIR.LEFT);
+                        gameControl.wantMove(imageView,Controller.DIR.LEFT);
                     }
                 }
                 else if(code.equals(KeyCode.S)) {
                     for (ImageView imageView : imageSelected) {
-                        gameControl.msgMove(imageView,Controller.DIR.DOWN);
+                        gameControl.wantMove(imageView,Controller.DIR.DOWN);
                     }
                 }
                 else if(code.equals(KeyCode.D)) {
                     for (ImageView imageView : imageSelected) {
-                        gameControl.msgMove(imageView,Controller.DIR.RIGHT);
+                        gameControl.wantMove(imageView,Controller.DIR.RIGHT);
                     }
                 }
                 else if(code.equals(KeyCode.I)) {
@@ -161,7 +169,7 @@ public class View extends Application{
                 else if(code.equals(KeyCode.T)) {
                     // Test;
                     gameControl=new Controller();
-                    gameControl.set(primaryStage, root, scene);
+                    gameControl.set(primaryStage, root, scene,imageSelected);
 
                     gameClient=new GameClient(gameControl);
                     // TODO: 用GUI输入IP替换下面；
@@ -220,6 +228,8 @@ public class View extends Application{
     }
 
     public void setSelectEvent(Controller c,ImageView imageView) {
+        // 本函数中不要使用gameController，会报错空指针，因为我使用new View().setSelectEvent()
+        // 真正的gameController已经作为参数传进来了，使用c即可；
         imageView.setOnMouseClicked(e->
     {   
         MouseButton b=e.getButton();
@@ -234,7 +244,11 @@ public class View extends Application{
                 imageSelected.add(imageView);
             }
             else { // 左击敌方生物，已选列表的所有生物都尝试攻击目标；
-                
+                //System.out.println(imageSelected.size());
+                for (ImageView imageView2 : imageSelected) {
+                    System.out.println(String.format("%d want to attack %d", c.getImgID(imageView2),c.getImgID(imageView)));
+                    c.wantAttack(imageView2, imageView);
+                }
             }
         }
         else if(b==MouseButton.SECONDARY) {

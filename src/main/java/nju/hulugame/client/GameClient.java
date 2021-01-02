@@ -171,6 +171,12 @@ public class GameClient implements MsgHandler{
                 System.out.println("Create Creature "+id+" at "+x+" " +y);
                 gameControl.createItem(id,x,y);
             }
+            else if(msgType==MSG.ATTACK) {
+                int idA=dis.readInt();
+                int idD=dis.readInt();
+                System.out.println(String.format("Msg: %d attack %d", idA,idD));
+                gameControl.attack(idA,idD);
+            }
             else {
                 System.out.println("Unhandled Message!");
             }
@@ -246,6 +252,30 @@ public class GameClient implements MsgHandler{
             dos.writeInt(id);
             dos.writeInt(x);
             dos.writeInt(y);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] buf = baos.toByteArray();
+        sendMsg(buf);
+	}
+	public void sendAttackMsg(int id, int id2) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(88);
+        DataOutputStream dos = new DataOutputStream(baos);
+        try {
+            dos.writeInt(MSG.ATTACK.ordinal());
+            dos.writeInt(id);
+            dos.writeInt(id2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] buf = baos.toByteArray();
+        sendMsg(buf);
+	}
+	public void sendEndMsg() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(88);
+        DataOutputStream dos = new DataOutputStream(baos);
+        try {
+            dos.writeInt(MSG.END.ordinal());
         } catch (IOException e) {
             e.printStackTrace();
         }

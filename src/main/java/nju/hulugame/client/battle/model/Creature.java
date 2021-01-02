@@ -8,6 +8,7 @@ public class Creature {
     protected int attack;
     protected int defence;
     protected int speed;  // 每回合的行动力，可以走几格；
+    protected int speedMax; // 每回合的行动力，可以走几格；
     protected int attackDist; // 正方形的攻击距离，取x,y方向上差值的最大值即可。
     
     public Creature() { }
@@ -25,4 +26,12 @@ public class Creature {
     public int getHealth() { return health; }
     //public int getX() { return x; }
     //public int getY() { return y; }
+    public int getAttack() { return attack; }
+    public int getDefence() { return defence; }
+    public int getSpeed() { return speed; }
+    public int getAttackDist() { return attackDist; }
+    public void setHealth(int i) { health=i; }
+    public void setSpeed(int i) { speed=i; }
+    public void initSpeed() { speed=speedMax; }
+
 }
