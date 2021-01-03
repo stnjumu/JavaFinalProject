@@ -10,11 +10,11 @@ public class BattleField {
 
     public void addHulu(Huluwa h) {
         huluList.add(h);
-        System.out.println("Add new huluwa: "+h.getName());
+        //System.out.println("Add new huluwa: "+h.getName());
     }
     public void addEvil(Evil e) {
         evilList.add(e);
-        System.out.println("Add new evil: "+e.getName());
+        //System.out.println("Add new evil: "+e.getName());
     }
 
 }

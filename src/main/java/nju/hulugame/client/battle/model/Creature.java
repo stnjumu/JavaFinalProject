@@ -22,7 +22,17 @@ public class Creature {
         //this.y=y;
     }
 
-    public String getName() { return name; }
+    public Creature(String name2, int health2, int attack2, int defence2, int speed2, int speedMax2, int attackDist2) {
+        this.name=name2;
+        this.health=health2;
+        this.attack=attack2;
+        this.defence=defence2;
+        this.speed=speed2;
+        this.speedMax=speedMax2;
+        this.attackDist=attackDist2;
+    }
+    
+	public String getName() { return name; }
     public int getHealth() { return health; }
     //public int getX() { return x; }
     //public int getY() { return y; }
@@ -34,4 +44,13 @@ public class Creature {
     public void setSpeed(int i) { speed=i; }
     public void initSpeed() { speed=speedMax; }
 
+    public void set(String name2, int health2, int attack2, int defence2, int speed2, int speedMax2, int attackDist2) {
+        this.name=name2;
+        this.health=health2;
+        this.attack=attack2;
+        this.defence=defence2;
+        this.speed=speed2;
+        this.speedMax=speedMax2;
+        this.attackDist=attackDist2;
+    }
 }

@@ -103,7 +103,8 @@ public class View extends Application{
             gameClient=new GameClient(gameControl);
             //无连接；
             gameControl.setClient(gameClient);
-            fileReader=new FileReader(tf2.getText());
+            String path="src/main/resources/replay/";
+            fileReader=new FileReader(path,tf2.getText());
 
             new Thread(new ReaderThread()).start();
             //FileReader fileReader=new FileReader(tf2.getText());

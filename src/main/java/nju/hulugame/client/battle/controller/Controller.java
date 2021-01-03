@@ -115,10 +115,10 @@ public class Controller {
 
         itemList.add(item);
         Platform.runLater(()-> {
-            if(id<10)
+            /*if(id<10)
                 System.out.println("adding huluwa");
             else
-                System.out.println("adding evil");
+                System.out.println("adding evil");*/
 
             mainPane.getChildren().add(iv);
             mainPane.getChildren().add(text);
@@ -557,6 +557,4 @@ public class Controller {
         }
         return -1;
 	}
-
-
 }

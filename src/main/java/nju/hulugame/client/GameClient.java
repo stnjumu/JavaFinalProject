@@ -7,8 +7,8 @@ import nju.hulugame.client.battle.controller.Controller.MSG;
 import nju.hulugame.client.battle.view.View;
 
 import java.net.*;
-
-
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.io.*;
 
 import javafx.application.Application;
@@ -35,7 +35,11 @@ public class GameClient implements MsgHandler{
 
     private FileWriter fileWriter;
     public void newFileWriter(int side) {
-        fileWriter=new FileWriter(side);
+        String path="src/main/resources/replay/";
+        SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd HH_mm_ss_");//设置日期格式
+        String time=df.format(new Date());
+
+        fileWriter=new FileWriter(path,time,side);
     }
     public FileWriter getFileWriter() {
         return fileWriter;

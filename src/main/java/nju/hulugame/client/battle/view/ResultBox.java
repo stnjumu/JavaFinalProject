@@ -10,17 +10,17 @@ import javafx.stage.Stage;
 
 public class ResultBox {
     public void display(String title , String message, double x, double y){
-        Stage window = new Stage();
-        window.setTitle(title);
+        Stage stage = new Stage();
+        stage.setTitle(title);
         //modality要使用Modality.APPLICATION_MODEL
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setMinWidth(300);
-        window.setMinHeight(150);
-        window.setX(x-300/2);
-        window.setY(y-150/2);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setMinWidth(300);
+        stage.setMinHeight(150);
+        stage.setX(x-300/2);
+        stage.setY(y-150/2);
     
         Button button = new Button("重新开始");
-        button.setOnAction(e -> window.close());
+        button.setOnAction(e -> stage.close());
     
         Label label = new Label(message);
     
@@ -29,8 +29,8 @@ public class ResultBox {
         layout.setAlignment(Pos.CENTER);
     
         Scene scene = new Scene(layout);
-        window.setScene(scene);
+        stage.setScene(scene);
         //使用showAndWait()先处理这个窗口，而如果不处理，main中的那个窗口不能响应
-        window.showAndWait();
+        stage.showAndWait();
         }
 }

@@ -11,9 +11,9 @@ public class FileReader {
     FileInputStream fis=null;
     BufferedInputStream bis=null;
     
-    public FileReader(String name) {
+    public FileReader(String path,String name) {
         try {
-            fis=new FileInputStream(String.format("src/main/resources/replay/%s.rp", name));
+            fis=new FileInputStream(String.format("%s%s.rp",path, name));
             bis=new BufferedInputStream(fis);
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,11 +66,21 @@ public class FileReader {
             int next=bis.read();
             while(next!=-1) {
                 handle(bis,next,gameControl);
-                Thread.sleep(100);
+                Thread.sleep(500);
                 next=bis.read();
             }
         } catch (Exception e) {
             System.out.println("Replay file is end! Stop Reading!");
         }
+    }
+
+    public int getInt() {
+        int ret=-1;
+        try {
+            ret=bis.read();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 }

@@ -81,4 +81,7 @@ public class Huluwa extends Creature{
     public Huluwa(String name,int x,int y) {
         super(name,x,y);
     }
+    public Huluwa(String name,int health,int attack,int defence,int speed,int speedMax,int attackDist) {
+        super(name,health,attack,defence,speed,speedMax,attackDist);
+    }
 }

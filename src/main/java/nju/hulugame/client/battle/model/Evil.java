@@ -24,7 +24,7 @@ public class Evil extends Creature{
             attackDist=1;
         }
     }
-    public Evil(String name,int x,int y) {
-        super(name,x,y);
+    public Evil(String name,int health,int attack,int defence,int speed,int speedMax,int attackDist) {
+        super(name,health,attack,defence,speed,speedMax,attackDist);
     }
 }
