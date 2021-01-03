@@ -53,11 +53,11 @@ public class Controller {
     private int evilCount=0;
     private static String strHealth="Health";
     private static String strSpeed="Speed";
-
+    /*
     public ImageView image0;
     public ImageView getImage0() {
         return image0;
-    }
+    }*/
 
     private ArrayList<Item> itemList=new ArrayList<>();
 
@@ -222,6 +222,22 @@ public class Controller {
         imageSelected.clear();
         
         System.out.println("New Round!");
+    }
+
+    public void cleanUp() {
+        // 清空javafx图像；
+        Platform.runLater(()-> {
+            for (Item item : itemList) {
+                // 移除图像；
+                mainPane.getChildren().remove(item.iv);
+                for (Text t : item.textList) {
+                    mainPane.getChildren().remove(t);                    
+                }
+            }
+            // 移除选择的图像指针；
+            if(imageSelected!=null)
+                imageSelected.clear();
+        });
     }
 
     public void initBattleField() {
@@ -458,14 +474,16 @@ public class Controller {
                     if(winSide==side) {
                         // 赢了；
                         new ResultBox().display("战斗结束", "你赢了！",x,y);
-                        gameClient.sendEndMsg();
-                        System.exit(0);
+                        if(gamePlaying==1)
+                            gameClient.sendEndMsg();
+                        cleanUp();
                     }
                     else {
                         // 输了；
                         new ResultBox().display("战斗结束", "你输了！",x,y);
-                        gameClient.sendEndMsg();
-                        System.exit(0);
+                        if(gamePlaying==1)
+                            gameClient.sendEndMsg();
+                        cleanUp();
                     }
                 }
             //});

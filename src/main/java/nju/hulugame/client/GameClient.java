@@ -32,6 +32,14 @@ public class GameClient implements MsgHandler{
     // 游戏相关
     private Controller gameControl;
     private int side;  // 控制葫芦娃0，或妖精1；
+
+    private FileWriter fileWriter;
+    public void newFileWriter(int side) {
+        fileWriter=new FileWriter(side);
+    }
+    public FileWriter getFileWriter() {
+        return fileWriter;
+    }
     
     public int getSide() {
         return side;
@@ -140,7 +148,11 @@ public class GameClient implements MsgHandler{
         ByteArrayInputStream bais = new ByteArrayInputStream(ibuf, 0, dp.getLength());
         DataInputStream dis = new DataInputStream(bais);
         try {
-            MSG msgType=MSG.values()[dis.readInt()];
+            int msgInt=dis.readInt();
+            //To File;
+            fileWriter.writeInt(msgInt);
+
+            MSG msgType=MSG.values()[msgInt];
 
             if(msgType==MSG.START) {
                 System.out.println("Game Start!");
@@ -149,10 +161,17 @@ public class GameClient implements MsgHandler{
             else if(msgType==MSG.MOVE) {
                 int id=dis.readInt();
                 int dir=dis.readInt();
+
+                fileWriter.writeInt(id);
+                fileWriter.writeInt(dir);
+
                 gameControl.move(id,DIR.values()[dir]);
             }
             else if(msgType==MSG.WAIT) {
                 int sideWait=dis.readInt();
+
+                fileWriter.writeInt(sideWait);
+
                 System.out.println("Wait "+sideWait);
                 if(sideWait==gameControl.getSide()) {
                     gameControl.setSelfWait(1);
@@ -168,12 +187,21 @@ public class GameClient implements MsgHandler{
                 int id=dis.readInt();
                 int x=dis.readInt();
                 int y=dis.readInt();
+
+                fileWriter.writeInt(id);
+                fileWriter.writeInt(x);
+                fileWriter.writeInt(y);
+
                 System.out.println("Create Creature "+id+" at "+x+" " +y);
                 gameControl.createItem(id,x,y);
             }
             else if(msgType==MSG.ATTACK) {
                 int idA=dis.readInt();
                 int idD=dis.readInt();
+
+                fileWriter.writeInt(idA);
+                fileWriter.writeInt(idD);
+                
                 System.out.println(String.format("Msg: %d attack %d", idA,idD));
                 gameControl.attack(idA,idD);
             }

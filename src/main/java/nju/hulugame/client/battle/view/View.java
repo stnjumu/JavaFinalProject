@@ -1,6 +1,7 @@
 package nju.hulugame.client.battle.view;
 
 import nju.hulugame.client.GameClient;
+import nju.hulugame.client.FileReader;
 import nju.hulugame.client.battle.controller.Controller;
 import nju.hulugame.client.battle.controller.Controller.MSG;
 import nju.hulugame.client.battle.model.*;
@@ -46,6 +47,7 @@ public class View extends Application{
 
     private GameClient gameClient;
     private Controller gameControl;
+    private FileReader fileReader;
 
     public static void main() {
         String[] Eargs={};
@@ -86,6 +88,26 @@ public class View extends Application{
             gameClient.connect(tf.getText());
             gameControl.setClient(gameClient);
             gameControl.setSide(gameClient.getSide());
+            gameClient.newFileWriter(gameClient.getSide());
+        });
+
+        
+        TextField tf2=new TextField("0");
+        toolBar.getItems().add(tf2);
+        Button bConnect2=new Button("读取存档");
+        toolBar.getItems().add(bConnect2);
+        bConnect2.setOnAction(e->{
+            gameControl=new Controller();
+            gameControl.set(primaryStage, mainPane, scene,imageSelected);
+
+            gameClient=new GameClient(gameControl);
+            //无连接；
+            gameControl.setClient(gameClient);
+            fileReader=new FileReader(tf2.getText());
+
+            new Thread(new ReaderThread()).start();
+            //FileReader fileReader=new FileReader(tf2.getText());
+            //fileReader.replay(gameControl);
         });
 
         //Text t=new Text("时间");
@@ -108,6 +130,8 @@ public class View extends Application{
         primaryStage.show();
         mainStage=primaryStage;
         primaryStage.setOnCloseRequest(e->{
+            if(gameClient!=null)
+                gameClient.sendEndMsg();
             System.exit(0);
         });
         
@@ -166,6 +190,7 @@ public class View extends Application{
                 else if(code.equals(KeyCode.E)) {
                     gameControl.wantWait();
                 }
+                /*
                 else if(code.equals(KeyCode.T)) {
                     // Test;
                     gameControl=new Controller();
@@ -188,20 +213,27 @@ public class View extends Application{
                     setSelectEvent(gameControl,iv);
 
                     new Thread(new TestThread()).start();
-                }
+                }*/
             }
         }
         );
     }
 
-    private class TestThread implements Runnable{
+    /*private class TestThread implements Runnable{
         @Override
         public void run() {
             gameControl.createItem(0, 0, 0);
         }
+    }*/
+
+    private class ReaderThread implements Runnable{
+        @Override
+        public void run() {
+            fileReader.replay(gameControl);
+        }
     }
     
-    private void setTimer(Text t, int i, Stage primaryStage) {
+    /*private void setTimer(Text t, int i, Stage primaryStage) {
         Timer timer= new Timer();
         t.setText("3");
         TimerTask task = new TimerTask() {
@@ -225,7 +257,7 @@ public class View extends Application{
 		primaryStage.setOnCloseRequest(req -> {
 			timer.cancel();
 		});
-    }
+    }*/
 
     public void setSelectEvent(Controller c,ImageView imageView) {
         // 本函数中不要使用gameController，会报错空指针，因为我使用new View().setSelectEvent()
