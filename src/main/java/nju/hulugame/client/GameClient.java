@@ -62,7 +62,7 @@ public class GameClient implements MsgHandler{
     }
 
     public int connect(String ip){
-        System.out.println("Connecting"+ip);
+        System.out.println("Connecting "+ip);
         serverIP = ip;
         Socket s = null;
         int sideRet=-1; // TODO: 通过网络实现队伍分配，未实现：
@@ -201,7 +201,7 @@ public class GameClient implements MsgHandler{
 
                 fileWriter.writeInt(idA);
                 fileWriter.writeInt(idD);
-                
+
                 System.out.println(String.format("Msg: %d attack %d", idA,idD));
                 gameControl.attack(idA,idD);
             }

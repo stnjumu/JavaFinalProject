@@ -92,7 +92,7 @@ public class View extends Application{
         });
 
         
-        TextField tf2=new TextField("0");
+        TextField tf2=new TextField("mainReplay");
         toolBar.getItems().add(tf2);
         Button bConnect2=new Button("读取存档");
         toolBar.getItems().add(bConnect2);
@@ -130,8 +130,6 @@ public class View extends Application{
         primaryStage.show();
         mainStage=primaryStage;
         primaryStage.setOnCloseRequest(e->{
-            if(gameClient!=null)
-                gameClient.sendEndMsg();
             System.exit(0);
         });
         
@@ -165,23 +163,47 @@ public class View extends Application{
                     }
                 }
                 else if(code.equals(KeyCode.W)) {
-                    for (ImageView imageView : imageSelected) {
-                        gameControl.wantMove(imageView,Controller.DIR.UP);
+                    if(imageSelected.size()==1) {
+                        // 只选择了一个图片；
+                        gameControl.oneWantMove(imageSelected.get(0),Controller.DIR.UP);
+                    }
+                    else {
+                        for (ImageView imageView : imageSelected) {
+                            gameControl.wantMove(imageView,Controller.DIR.UP);
+                        }
                     }
                 }
                 else if(code.equals(KeyCode.A)) {
-                    for (ImageView imageView : imageSelected) {
-                        gameControl.wantMove(imageView,Controller.DIR.LEFT);
+                    if(imageSelected.size()==1) {
+                        // 只选择了一个图片；
+                        gameControl.oneWantMove(imageSelected.get(0),Controller.DIR.LEFT);
+                    }
+                    else {
+                        for (ImageView imageView : imageSelected) {
+                            gameControl.wantMove(imageView,Controller.DIR.LEFT);
+                        }
                     }
                 }
                 else if(code.equals(KeyCode.S)) {
-                    for (ImageView imageView : imageSelected) {
-                        gameControl.wantMove(imageView,Controller.DIR.DOWN);
+                    if(imageSelected.size()==1) {
+                        // 只选择了一个图片；
+                        gameControl.oneWantMove(imageSelected.get(0),Controller.DIR.DOWN);
+                    }
+                    else {
+                        for (ImageView imageView : imageSelected) {
+                            gameControl.wantMove(imageView,Controller.DIR.DOWN);
+                        }
                     }
                 }
                 else if(code.equals(KeyCode.D)) {
-                    for (ImageView imageView : imageSelected) {
-                        gameControl.wantMove(imageView,Controller.DIR.RIGHT);
+                    if(imageSelected.size()==1) {
+                        // 只选择了一个图片；
+                        gameControl.oneWantMove(imageSelected.get(0),Controller.DIR.RIGHT);
+                    }
+                    else {
+                        for (ImageView imageView : imageSelected) {
+                            gameControl.wantMove(imageView,Controller.DIR.RIGHT);
+                        }
                     }
                 }
                 else if(code.equals(KeyCode.I)) {

@@ -19,7 +19,7 @@ public class ResultBox {
         window.setX(x-300/2);
         window.setY(y-150/2);
     
-        Button button = new Button("退出游戏！");
+        Button button = new Button("重新开始");
         button.setOnAction(e -> window.close());
     
         Label label = new Label(message);

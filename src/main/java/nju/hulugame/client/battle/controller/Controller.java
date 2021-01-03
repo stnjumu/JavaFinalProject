@@ -198,7 +198,6 @@ public class Controller {
     }
 
     public void setSide(int i) {
-        System.out.println("Get side= "+i);
         side=i;
     } 
     public void setSelfWait(int i) {
@@ -226,6 +225,10 @@ public class Controller {
 
     public void cleanUp() {
         // 清空javafx图像；
+        if(gamePlaying==1) {
+            // 关闭文件；
+            gameClient.getFileWriter().close();
+        }
         Platform.runLater(()-> {
             for (Item item : itemList) {
                 // 移除图像；
@@ -266,7 +269,6 @@ public class Controller {
         for (Item item : itemList) {
             if(item.iv==iv)
                 // 判断能否移动;
-                
                 if(item.creature.getSpeed()>0
                 &&(dir==DIR.UP&&item.y>0
                     ||dir==DIR.DOWN&&item.y<View.YNUM-1
@@ -278,6 +280,42 @@ public class Controller {
                 }
         }
     }
+
+	public void oneWantMove(ImageView iv, DIR dir) {
+        System.out.println("Judging if can move...");
+        for (Item item : itemList) {
+            if(item.iv==iv)
+                // 判断能否移动;
+                if(item.creature.getSpeed()>0
+                &&(dir==DIR.UP&&item.y>0
+                    ||dir==DIR.DOWN&&item.y<View.YNUM-1
+                    ||dir==DIR.LEFT&&item.x>0
+                    ||dir==DIR.RIGHT&&item.x<View.XNUM-1
+                    )
+                ) {
+                    boolean canMove=true;
+                    int newX=item.x;
+                    int newY=item.y;
+                    if(dir==DIR.UP)
+                        newY--;
+                    else if(dir==DIR.DOWN)
+                        newY++;
+                    else if(dir==DIR.LEFT)
+                        newX--;
+                    else
+                        newX++;
+                    // 判断新位置是否有生物；
+                    for (Item otherItem : itemList) {
+                        if(otherItem.x==newX&&otherItem.y==newY)
+                            canMove=false;
+                    }
+                    if(canMove) {
+                        System.out.println("Can Move;");
+                        gameClient.sendMoveMsg(item.id,dir);
+                    }
+                }
+        }
+	}
 
 	public void wantWait() {
         if(oppWait==1) { // 对手已经等待，开启游戏或新一轮；
