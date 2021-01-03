@@ -20,14 +20,14 @@ java -jar ./target/hulugame-1.0.0.jar       // 分别启动2个客户端
 ```
 服务器端没有图形界面，客户端图形界面如下图：
 
-![图形界面](http://i2.tiimg.com/731544/4cbbca009e283e58.png)
+![图形界面](https://github.com/stnjumu/JavaFinalProjectPictures/blob/main/images/%E7%95%8C%E9%9D%A2.png?raw=true)
 ### 连接服务器
 点击“连接服务器”按钮即可连接本机的服务器，或者可以修改按钮左边的IP地址，以连接其他IP的服务器；
 
 ### 读取存档
 点击界面右上角的“>>”按钮，弹出界面：
 
-![弹出界面](http://i2.tiimg.com/731544/01289875f9688562.png)
+![弹出界面](https://github.com/stnjumu/JavaFinalProjectPictures/blob/main/images/%E5%BC%B9%E5%87%BA%E7%95%8C%E9%9D%A2.png?raw=true)
 
 点击“读取存档”按钮即可读取默认存档，之后自动进行战斗至结束；(默认存档mainReplay.rp即我选择的比较精彩的战斗)
 
@@ -36,10 +36,12 @@ java -jar ./target/hulugame-1.0.0.jar       // 分别启动2个客户端
 ### 联机对战
 两个客户端都连接服务器端，先连接服务器端的会分配为葫芦娃阵营，另一个会是妖精阵营。
 
+注意：读取存档和联机对战请不要同时进行。
+
 ### 界面及操作说明
 双方都**按E键**后会创建出双方生物，战斗开始。下图为一个格子中的生物：
 
-![蛇精](http://i2.tiimg.com/731544/a124a90c3b58ea1d.png)
+![蛇精](https://github.com/stnjumu/JavaFinalProjectPictures/blob/main/images/%E7%94%9F%E7%89%A9%E5%9B%BE%E7%89%87.png?raw=true)
 
 **左键点击**己方生物图片可以选中该生物，可以点击多个生物以选中多个己方生物，**按wasd键**对使所有已选生物上下左右移动。
 
@@ -55,22 +57,32 @@ java -jar ./target/hulugame-1.0.0.jar       // 分别启动2个客户端
 
 一方生物全部死亡后**游戏结束**，游戏结束时提示胜利或失败，并断开与服务器连接，失败界面如下：
 
-![失败界面](http://i2.tiimg.com/731544/e9ad99a87aaf7cb9.png)
+![失败界面](https://github.com/stnjumu/JavaFinalProjectPictures/blob/main/images/%E7%BB%93%E6%9D%9F%E7%95%8C%E9%9D%A2.png?raw=true)
 
 点击“重新开始”按钮可以再次读取存档或连接服务器。
 
 ### 图示说明
-1. 选中多人并进行移动：
+1. 开始站位及生物介绍：
 
-![多人移动](http://i2.tiimg.com/731544/db3674093ba4c285.gif)
+![开始站位](https://github.com/stnjumu/JavaFinalProjectPictures/blob/main/images/%E5%88%9D%E5%A7%8B%E7%AB%99%E4%BD%8D.png?raw=true)
 
-2. 移动并攻击：
+双方生物在左右两侧的为远程攻击，攻击距离为3，我的攻击距离设定比较简单：x或y方向上距离中的最大值小于等于3即可，所以远程攻击覆盖范围是7*7的正方形。
 
-![移动并攻击](http://i2.tiimg.com/731544/42020349ff6e0d01.gif)
+中间的生物为近战攻击，攻击距离为1。
 
-3. 单人移动的碰撞检测
+设定上远程攻击生物攻击高，血少防低，而近战攻击生物相反。
 
-![碰撞检测](http://i2.tiimg.com/731544/13b3c03d9eb1eca2.gif)
+2. 选中多人并进行移动，及两个客户端同步：
+
+![多人移动](https://github.com/stnjumu/JavaFinalProjectPictures/blob/main/images/%E5%A4%9A%E4%BA%BA%E7%A7%BB%E5%8A%A8.gif?raw=true)
+
+3. 移动并攻击：
+
+![移动并攻击](https://github.com/stnjumu/JavaFinalProjectPictures/blob/main/images/%E7%A7%BB%E5%8A%A8%E6%94%BB%E5%87%BB.gif?raw=true)
+
+4. 单人移动的碰撞检测
+
+![碰撞检测](https://github.com/stnjumu/JavaFinalProjectPictures/blob/main/images/%E7%A7%BB%E5%8A%A8%E6%A3%80%E6%B5%8B.gif?raw=true)
 
 上图中操作为：鼠标选中隐身的葫芦娃，按两次W尝试向上移动，但不会移动，按S向下移动，按W向上移动，按D向右移动。
 
@@ -88,6 +100,9 @@ java -jar ./target/hulugame-1.0.0.jar       // 分别启动2个客户端
 当然如“图示说明”中演示的，我确保了一次选中一个图片进行移动的位置冲突检测，不会移动到已有其他生物的位置。
 ### 战斗回放功能
 功能基本实现，但与要求略有不同。我的实现不是按L键弹出文件对话框，而是在文本框中输入文件名，点击按钮后加载特定位置的存档文件。
+
+当然，战斗回放过程中无法操控任何生物。
+
 ### 图形化
 仅使用JavaFx;
 ### 多线程协同
@@ -118,3 +133,8 @@ java -jar ./target/hulugame-1.0.0.jar       // 分别启动2个客户端
 
 ### 其他
 大量使用try-catch语句来进行异常处理，使程序不容易闪退。
+
+## 不足
+图形化界面比较简陋，战斗方式单一，生物信息显示不全，没有操作提示，多生物同时移动的碰撞检测机制待实现。
+
+请不要在联机对战和读取存档同时进行，这部分的冲突检测未实现，两者会同时在一个场景中进行，场面会非常乱。

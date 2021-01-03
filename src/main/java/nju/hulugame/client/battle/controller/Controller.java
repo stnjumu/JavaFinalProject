@@ -229,6 +229,7 @@ public class Controller {
             // 关闭文件；
             gameClient.getFileWriter().close();
         }
+        gamePlaying=0;
         Platform.runLater(()-> {
             for (Item item : itemList) {
                 // 移除图像；
