@@ -3,27 +3,27 @@ package nju.hulugame.client.battle.view;
 import nju.hulugame.client.GameClient;
 import nju.hulugame.client.FileReader;
 import nju.hulugame.client.battle.controller.Controller;
-import nju.hulugame.client.battle.controller.Controller.MSG;
-import nju.hulugame.client.battle.model.*;
+//import nju.hulugame.client.battle.controller.Controller.MSG;
+//import nju.hulugame.client.battle.model.*;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javafx.application.Application;
-import javafx.scene.Group;
+//import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+//import javafx.scene.paint.Color;
+//import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.*;
+//import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
+//import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-import javafx.scene.image.Image;
+//import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -153,7 +153,7 @@ public class View extends Application{
             @Override
             public void handle(KeyEvent event) {
                 KeyCode code = event.getCode();
-                if(code.equals(KeyCode.LEFT)) {
+                /*if(code.equals(KeyCode.LEFT)) {
                     for (ImageView imageView2 : imageSelected) {
                         imageView2.setTranslateX(imageView2.getTranslateX()-XONE);
                     }
@@ -163,7 +163,8 @@ public class View extends Application{
                         imageView2.setTranslateX(imageView2.getTranslateX()+XONE);
                     }
                 }
-                else if(code.equals(KeyCode.W)) {
+                else*/
+                if(code.equals(KeyCode.W)) {
                     if(imageSelected.size()==1) {
                         // 只选择了一个图片；
                         gameControl.oneWantMove(imageSelected.get(0),Controller.DIR.UP);
@@ -207,9 +208,9 @@ public class View extends Application{
                         }
                     }
                 }
-                else if(code.equals(KeyCode.I)) {
+                /*else if(code.equals(KeyCode.I)) {
                     gameControl.initBattleField();
-                }
+                }*/
                 else if(code.equals(KeyCode.E)) {
                     gameControl.wantWait();
                 }

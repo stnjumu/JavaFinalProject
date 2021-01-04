@@ -1,6 +1,6 @@
 package nju.hulugame.client;
 
-import nju.hulugame.client.battle.controller.*;
+import nju.hulugame.client.battle.controller.Controller;
 import nju.hulugame.client.battle.controller.Controller.MSG;
 import nju.hulugame.client.battle.controller.Controller.DIR;
 

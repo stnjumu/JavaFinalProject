@@ -6,25 +6,25 @@ import nju.hulugame.client.battle.view.*;
 
 import java.util.ArrayList;
 
-import javafx.application.Application;
+//import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Group;
+//import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.Scene;
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
+//import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+//import javafx.scene.control.Button;
+//import javafx.scene.layout.BorderPane;
+//import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+//import javafx.event.ActionEvent;
+//import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+//import javafx.scene.input.KeyCode;
+//import javafx.scene.input.KeyEvent;
 
 public class Controller {
     // 常数
@@ -243,9 +243,9 @@ public class Controller {
                 imageSelected.clear();
         });
     }
-
+/*
     public void initBattleField() {
-        /*for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
             Huluwa huluwa=new Huluwa(Integer.toString(i+1),i,0);
             field.addHulu(huluwa);
 
@@ -259,12 +259,12 @@ public class Controller {
             //iv.relocate(coordinateI2D(huluwa.getX()), coordinateI2D(huluwa.getY()));
             mainPane.getChildren().add(iv);
             View.setSelectEvent(iv);
-        }*/
+        }
     }
 
     private double coordinateI2D(int x) {
         return x*View.XONE;
-    }
+    }*/
 
     public void wantMove(ImageView iv,DIR dir) {
         for (Item item : itemList) {

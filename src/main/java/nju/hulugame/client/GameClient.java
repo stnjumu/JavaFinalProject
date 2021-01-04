@@ -6,19 +6,19 @@ import nju.hulugame.client.battle.controller.Controller.DIR;
 import nju.hulugame.client.battle.controller.Controller.MSG;
 import nju.hulugame.client.battle.view.View;
 
-import java.net.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.io.*;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import java.net.Socket;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+import java.net.DatagramPacket;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 public class GameClient implements MsgHandler{
 
@@ -26,7 +26,6 @@ public class GameClient implements MsgHandler{
     private int UDP_PORT=40001;//客户端的UDP端口号
     private String serverIP;//服务器IP地址
     private int serverUDPPort;//服务器转发客户但UDP包的UDP端口
-    private int TANK_DEAD_UDP_PORT;//服务器监听坦克死亡的UDP端口
     private DatagramSocket dSocket = null;//客户端的UDP套接字
 
     // 游戏相关
@@ -56,20 +55,20 @@ public class GameClient implements MsgHandler{
         View.main();
     }
 
-    public void start() {
+    /*public void start() {
         System.out.println("start GameClient");
 
         // 连接并获得队伍
         // TODO: 放到图形界面的相应中，ip由图形界面输入；
         //serverIP="127.0.0.1";
         //side = connect(serverIP);
-    }
+    }*/
 
     public int connect(String ip){
         System.out.println("Connecting "+ip);
         serverIP = ip;
         Socket s = null;
-        int sideRet=-1; // TODO: 通过网络实现队伍分配，未实现：
+        int sideRet=-1;
         try {
             try {
                 s = new Socket(ip, GameServer.TCP_PORT);//创建TCP套接字

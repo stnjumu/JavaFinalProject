@@ -2,8 +2,6 @@ package nju.hulugame.client;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 public class FileWriteReadTest {
