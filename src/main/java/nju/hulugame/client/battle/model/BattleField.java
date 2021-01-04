@@ -47,5 +47,32 @@ public class BattleField {
             }
         }
     }
+    private Item getItem(int id) {
+        for (Item item : itemList) {
+            if(item.id==id)
+                return item;
+        }
+        System.out.println("Item Not Found!");
+        return null;
+    }
 
+    public int getImgSide(ImageView imageView) {
+		for (Item item : itemList) {
+            if(item.iv==imageView) {
+                if(item.id<10)
+                    return 0;
+                else
+                    return 1;
+            }
+        }
+        return -1;
+    }
+    public int getImgID(ImageView imageView) {
+		for (Item item : itemList) {
+            if(item.iv==imageView) {
+                return item.id;
+            }
+        }
+        return -1;
+	}
 }

@@ -57,6 +57,7 @@ public class View extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         System.out.println("View.start()");
+        mainStage=primaryStage;
         primaryStage.setTitle("葫芦娃大战妖精");
         root = new VBox();
         ToolBar toolBar=new ToolBar();
@@ -84,7 +85,6 @@ public class View extends Application{
             gameControl.set(primaryStage, mainPane, scene,imageSelected);
 
             gameClient=new GameClient(gameControl);
-            // TODO: 用GUI输入IP替换下面；
             gameClient.connect(tf.getText());
             gameControl.setClient(gameClient);
             gameControl.setSide(gameClient.getSide());
@@ -107,25 +107,10 @@ public class View extends Application{
             fileReader=new FileReader(path,tf2.getText());
 
             new Thread(new ReaderThread()).start();
-            //FileReader fileReader=new FileReader(tf2.getText());
-            //fileReader.replay(gameControl);
         });
 
-        //Text t=new Text("时间");
-        //toolBar.getItems().add(t);
-        //setTimer(t,30,primaryStage);
-
 		// 战场区：	
-		/*Image image = new Image("file:E:\\00.png");
-		ImageView imageView = new ImageView();
-        imageView.setImage(image);
-        mainPane.getChildren().add(imageView);
-        imageView.setLayoutX(0);
-        imageView.setLayoutY(0);
-        setSelectEvent(imageView);*/
-			
         scene = new Scene(root,XTOTAL,YTOTAL+XONE);
-		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -214,41 +199,11 @@ public class View extends Application{
                 else if(code.equals(KeyCode.E)) {
                     gameControl.wantWait();
                 }
-                /*
-                else if(code.equals(KeyCode.T)) {
-                    // Test;
-                    gameControl=new Controller();
-                    gameControl.set(primaryStage, root, scene,imageSelected);
-
-                    gameClient=new GameClient(gameControl);
-                    // TODO: 用GUI输入IP替换下面；
-                    //gameClient.connect("127.0.0.1");
-                    gameControl.setClient(gameClient);
-                    gameControl.setSide(gameClient.getSide());
-                   
-                    Image image = new Image(String.format("file:src/main/resources/%d.png", 1));
-                    ImageView iv = new ImageView();
-                    iv.setImage(image);
-
-                    System.out.println("adding huluwa");
-                    mainPane.getChildren().add(iv);
-                    iv.setLayoutX(0);
-                    iv.setLayoutY(XONE*7);
-                    setSelectEvent(gameControl,iv);
-
-                    new Thread(new TestThread()).start();
-                }*/
             }
         }
         );
     }
 
-    /*private class TestThread implements Runnable{
-        @Override
-        public void run() {
-            gameControl.createItem(0, 0, 0);
-        }
-    }*/
 
     private class ReaderThread implements Runnable{
         @Override
@@ -256,32 +211,6 @@ public class View extends Application{
             fileReader.replay(gameControl);
         }
     }
-    
-    /*private void setTimer(Text t, int i, Stage primaryStage) {
-        Timer timer= new Timer();
-        t.setText("3");
-        TimerTask task = new TimerTask() {
-
-			@Override
-			public void run() {
-                // 让JavaFX的UI线程更新界面
-                int newTime=Integer.parseInt(t.getText())-1;
-                if(newTime<0) {
-                    newTime=30;
-                    // TODO: 重置回合;
-                    gameControl.nextRound();
-                }
-				t.setText(Integer.toString(newTime));
-			}
-		};
-		// 1s执行一次
-		timer.schedule(task, 0,1000);
-
-		// 窗口关闭的时候结束计时器
-		primaryStage.setOnCloseRequest(req -> {
-			timer.cancel();
-		});
-    }*/
 
     public void setSelectEvent(Controller c,ImageView imageView) {
         // 本函数中不要使用gameController，会报错空指针，因为我使用new View().setSelectEvent()
@@ -312,5 +241,20 @@ public class View extends Application{
             imageSelected.remove(imageView);
         }
     });
+    }
+
+
+    // getMethod;
+    public Stage getMainStage() {
+        return mainStage;
+    }
+    public Pane getRoot() {
+        return root;
+    }
+    public Pane getMainPane() {
+        return mainPane;
+    }
+    public Scene getScene() {
+        return scene;
     }
 }

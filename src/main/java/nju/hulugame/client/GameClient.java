@@ -31,22 +31,8 @@ public class GameClient implements MsgHandler{
     // 游戏相关
     private Controller gameControl;
     private int side;  // 控制葫芦娃0，或妖精1；
-
     private FileWriter fileWriter;
-    public void newFileWriter(int side) {
-        String path="src/main/resources/replay/";
-        SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd HH_mm_ss_");//设置日期格式
-        String time=df.format(new Date());
-
-        fileWriter=new FileWriter(path,time,side);
-    }
-    public FileWriter getFileWriter() {
-        return fileWriter;
-    }
     
-    public int getSide() {
-        return side;
-    }
     public GameClient(Controller c) {
         gameControl=c;
     }
@@ -312,5 +298,33 @@ public class GameClient implements MsgHandler{
         }
         byte[] buf = baos.toByteArray();
         sendMsg(buf);
-	}
+    }
+    
+    // getMethod;
+    public int getUDPPORT() {
+        return UDP_PORT;
+    }
+    public String getServerIP() {
+        return serverIP;
+    }
+    public int getServerUDPPort() {
+        return serverUDPPort;
+    }
+    public DatagramSocket getDSocket() {
+        return dSocket;
+    }
+    public int getSide() {
+        return side;
+    }
+
+    public void newFileWriter(int side) {
+        String path="src/main/resources/replay/";
+        SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd HH_mm_ss_");//设置日期格式
+        String time=df.format(new Date());
+
+        fileWriter=new FileWriter(path,time,side);
+    }
+    public FileWriter getFileWriter() {
+        return fileWriter;
+    }
 }

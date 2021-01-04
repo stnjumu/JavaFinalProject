@@ -53,11 +53,7 @@ public class Controller {
     private int evilCount=0;
     private static String strHealth="Health";
     private static String strSpeed="Speed";
-    /*
-    public ImageView image0;
-    public ImageView getImage0() {
-        return image0;
-    }*/
+
 
     private ArrayList<Item> itemList=new ArrayList<>();
 
@@ -127,50 +123,6 @@ public class Controller {
             View v=new View();
             v.setSelectEvent(this,iv);
         });
-
-        /*if(id<10) {
-            // 葫芦娃
-            Huluwa huluwa=new Huluwa(id);
-            Image image = new Image(String.format("file:src/main/resources/%d.png", id));
-            ImageView iv = new ImageView();
-            iv.setImage(image);
-            setLayoutPos(iv,x,y);
-
-            Item item=new Item(id,x,y,huluwa,iv);
-            Text text=new Text(Integer.toString(huluwa.getHealth()));
-            item.addText(text);
-            itemList.add(item);
-            Platform.runLater(()-> {
-                System.out.println("adding huluwa");
-                mainPane.getChildren().add(iv);
-                mainPane.getChildren().add(text);
-                setHealthLayoutPos(text, x, y);
-                
-                View v=new View();
-                v.setSelectEvent(this,iv);
-            });
-        }
-        else {
-            Evil evil=new Evil(id);
-            Image image = new Image(String.format("file:src/main/resources/%d.png", id));
-            ImageView iv = new ImageView();
-            iv.setImage(image);
-            setLayoutPos(iv,x,y);
-            
-            Item item=new Item(id,x,y,evil,iv);
-            Text text=new Text(Integer.toString(evil.getHealth()));
-            item.addText(text);
-            itemList.add(item);
-            Platform.runLater(()-> {
-                System.out.println("adding evil");
-                mainPane.getChildren().add(iv);
-                mainPane.getChildren().add(text);
-                setHealthLayoutPos(text, x, y);
-
-                View v=new View();
-                v.setSelectEvent(this,iv);
-            });
-        }*/
     }
     
     private void setLayoutPos(Node node, int x, int y) {
@@ -243,28 +195,6 @@ public class Controller {
                 imageSelected.clear();
         });
     }
-/*
-    public void initBattleField() {
-        for (int i = 0; i < 2; i++) {
-            Huluwa huluwa=new Huluwa(Integer.toString(i+1),i,0);
-            field.addHulu(huluwa);
-
-            Image image = new Image(String.format("file:src/main/resources/%d.png", i));
-            ImageView iv = new ImageView();
-            if(i==0)
-                image0=iv;
-            iv.setImage(image);
-            iv.setTranslateX(huluwa.getX()*View.XONE);
-            iv.setTranslateY(huluwa.getY()*View.YONE);
-            //iv.relocate(coordinateI2D(huluwa.getX()), coordinateI2D(huluwa.getY()));
-            mainPane.getChildren().add(iv);
-            View.setSelectEvent(iv);
-        }
-    }
-
-    private double coordinateI2D(int x) {
-        return x*View.XONE;
-    }*/
 
     public void wantMove(ImageView iv,DIR dir) {
         for (Item item : itemList) {
@@ -358,10 +288,6 @@ public class Controller {
             e.printStackTrace();
         }
     }
-    
-	public int getSide() {
-		return side;
-	}
 
     private class Item {
         int id; // 唯一标识符；
@@ -557,5 +483,25 @@ public class Controller {
             }
         }
         return -1;
-	}
+    }
+    
+    // GetMethods
+    public int getGamePlaying() {
+        return gamePlaying;
+    }
+    public int getSide() {
+        return side;
+    }
+    public int getSelfWait() {
+        return selfWait;
+    }
+    public int getOppWait() {
+        return oppWait;
+    }
+    public int getHuluwaCount() {
+        return huluwaCount;
+    }
+    public int getEvilCount() {
+        return evilCount;
+    }
 }
